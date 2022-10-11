@@ -3,4 +3,4 @@ project(The_30_matches C)
 
 set(CMAKE_C_STANDARD 99)
 
-add_executable(The_30_matches main.c)
+add_executable(The_30_matches main.c appli.c)
