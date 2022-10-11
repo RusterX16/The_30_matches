@@ -2,9 +2,13 @@
 #include <stdlib.h>
 
 void displayMatches(int matches);
+
 void breakLine();
+
 int chooseAmount();
+
 int generateTake();
+
 int checkOver(int matches, int turn);
 
 int main() {
@@ -32,7 +36,11 @@ int main() {
             breakLine();
 
             matches -= take;
-            over = checkOver(matches, take);
+
+            if (matches <= 0) {
+                printf("Vous avez perdu la partie !\n");
+                over = 1;
+            }
             turn = 0;
         } else {
             printf("Au bot de jouer !");
@@ -48,7 +56,11 @@ int main() {
             breakLine();
 
             matches -= take;
-            over = checkOver(matches, take);
+
+            if (matches <= 0) {
+                printf("Vous avez gagne la partie !\n");
+                over = 1;
+            }
             turn = 1;
         }
         round++;
@@ -86,16 +98,4 @@ int chooseAmount() {
 
 int generateTake() {
     return rand() % 3 + 1;
-}
-
-int checkOver(int matches, int turn) {
-    if (matches <= 0) {
-        if (turn) {
-            printf("Vous avez gagne !\n");
-        } else {
-            printf("Vous avez perdu !\n");
-        }
-        return 1;
-    }
-    return 0;
 }
