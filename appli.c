@@ -12,12 +12,13 @@ void jeu_ordi(int remake);
 void jeuOrdiFacile();
 void jeuOrdiMoyen();
 void jeuOrdiDifficile();
+void jeuOrdiImpossible();
 void regles();
 void menu(int remake);
-//
 void displayMatches(int matches);
 int chooseAmount();
 int generateTake();
+int generateTakeToWin(int matches);
 void breakLine();
 
 const int NOMBRE_ALLUMETTES = 30;
@@ -33,9 +34,6 @@ int main() {
     return 0;
 }
 
-
-
-////////////////////////////////////////////////////
 
 void jeu_joueur() {
     // over est un boolean qui représente l'état du jeu (1: en cours, 0: terminé)
@@ -121,7 +119,7 @@ void jeu_ordi(int remake) {
 
     if(remake == 0) {
         printf("-----------------------------");
-        printf("\nVous venez de choisir Jouer contre l'ordinateur.\n\nVous disposez de plusieurs mode:\n\t1 - Facile\n\t2 - Moyen\n\t3 - Difficile\n\t4 - Menu\n");
+        printf("\nVous venez de choisir Jouer contre l'ordinateur.\n\nVous disposez de plusieurs mode:\n\t1 - Facile\n\t2 - Moyen\n\t3 - Difficile\n\t4 - Impossible\n\t5 - Menu\n");
         printf("\nVotre choix: ");
     } else {
         printf("\nVotre choix (1, 2 ou 3 ): ");
@@ -138,6 +136,9 @@ void jeu_ordi(int remake) {
         jeuOrdiDifficile();
         return;
     } else if(choix == 4) {
+        jeuOrdiImpossible();
+        return;
+    } else if(choix == 5) {
         printf("-----------------------------");
         menu(0);
         return;
@@ -307,7 +308,169 @@ void jeuOrdiMoyen() {
 }
 
 void jeuOrdiDifficile() {
+    // over est un boolean qui représente l'état du jeu (1: en cours, 0: terminé)
+    int over = 0;
+    // turn est un boolean qui représente le tour du joueur (1: joueur, 0: ordinateur)
+    int turn = 1;
+    // round est un entier qui représente le numéro du tour
+    int round = 1;
+    // matches est un entier qui représente le nombre d'allumettes restantes
+    int matches = NOMBRE_ALLUMETTES;
 
+    printf("\n");
+
+    // Tant que le jeu n'est pas terminé
+    while (!over) {
+        printf("--- Round %d ---\n", round);
+
+        // Si c'est le tour du joueur
+        if (turn) {
+            // On affiche le nombre d'allumettes restantes
+            printf("A vous de jouer !");
+            breakLine();
+            printf("Allumettes restantes : %d\n", matches);
+
+            displayMatches(matches);
+            breakLine();
+
+            // On demande au joueur de choisir le nombre d'allumettes qu'il veut retirer
+            int take = chooseAmount();
+
+            printf("Vous retirez %d allumettes.", take);
+            breakLine();
+
+            // On retire le nombre d'allumettes choisi par le joueur
+            matches -= take;
+
+            // Si le nombre d'allumettes est inférieur ou égal à 0, le joueur perds la partie
+            if (matches <= 0) {
+                printf("Vous avez perdu la partie !\n");
+                // On met le jeu en état terminé
+                over = 1;
+            } else {
+                // Sinon On passe le tour à l'ordinateur
+                turn = 0;
+            }
+        } else {
+            // Si c'est le tour de l'ordinateur
+            printf("A l'ordinateur de jouer !");
+            breakLine();
+            printf("Allumettes restantes : %d\n", matches);
+
+            displayMatches(matches);
+            breakLine();
+
+            // Puisqu'il ne faut pas prendre la dernière allumette
+            // l'ordinateur doit prendre des allumettes tel qu'après son coup:
+            // allumettes_restantes % 4 + 1 == 1
+            // que ce qu'il reste soit un multiple de 4 + 1
+            int take = generateTakeToWin(matches);
+
+            printf("Le bot retire %d allumettes.", take);
+            breakLine();
+
+            // On retire le nombre d'allumettes choisi par l'ordinateur
+            matches -= take;
+
+            // Si le nombre d'allumettes est inférieur ou égal à 0, l'ordinateur perds la partie
+            if (matches <= 0) {
+                printf("Vous avez gagne la partie !\n");
+                // On met le jeu en état terminé
+                over = 1;
+            }
+                // Sinon on passe le tour au joueur
+            else {
+                turn = 1;
+            }
+        }
+        // On incrémente le numéro du tour
+        round++;
+    }
+    menu(0);
+    return;
+}
+
+void jeuOrdiImpossible() {
+    // over est un boolean qui représente l'état du jeu (1: en cours, 0: terminé)
+    int over = 0;
+    // turn est un boolean qui représente le tour du joueur (1: joueur, 0: ordinateur)
+    int turn = 1;
+    // round est un entier qui représente le numéro du tour
+    int round = 1;
+    // matches est un entier qui représente le nombre d'allumettes restantes
+    int matches = NOMBRE_ALLUMETTES;
+
+    printf("\n");
+
+    // Tant que le jeu n'est pas terminé
+    while (!over) {
+        printf("--- Round %d ---\n", round);
+
+        // Si c'est le tour du joueur
+        if (turn) {
+            // Si c'est le tour de l'ordinateur
+            printf("A l'ordinateur de jouer !");
+            breakLine();
+            printf("Allumettes restantes : %d\n", matches);
+
+            displayMatches(matches);
+            breakLine();
+
+            // Puisqu'il ne faut pas prendre la dernière allumette
+            // l'ordinateur doit prendre des allumettes tel qu'après son coup:
+            // allumettes_restantes % 4 + 1 == 1
+            // que ce qu'il reste soit un multiple de 4 + 1
+            int take = generateTakeToWin(matches);
+
+            printf("Le bot retire %d allumettes.", take);
+            breakLine();
+
+            // On retire le nombre d'allumettes choisi par l'ordinateur
+            matches -= take;
+
+            // Si le nombre d'allumettes est inférieur ou égal à 0, l'ordinateur perds la partie
+            if (matches <= 0) {
+                printf("Vous avez gagne la partie !\n");
+                // On met le jeu en état terminé
+                over = 1;
+            } else {
+                // Sinon On passe le tour à l'ordinateur
+                turn = 0;
+            }
+        } else {
+            // On affiche le nombre d'allumettes restantes
+            printf("A vous de jouer !");
+            breakLine();
+            printf("Allumettes restantes : %d\n", matches);
+
+            displayMatches(matches);
+            breakLine();
+
+            // On demande au joueur de choisir le nombre d'allumettes qu'il veut retirer
+            int take = chooseAmount();
+
+            printf("Vous retirez %d allumettes.", take);
+            breakLine();
+
+            // On retire le nombre d'allumettes choisi par le joueur
+            matches -= take;
+
+            // Si le nombre d'allumettes est inférieur ou égal à 0, le joueur perds la partie
+            if (matches <= 0) {
+                printf("Vous avez perdu la partie !\n");
+                // On met le jeu en état terminé
+                over = 1;
+            }
+                // Sinon on passe le tour au joueur
+            else {
+                turn = 1;
+            }
+        }
+        // On incrémente le numéro du tour
+        round++;
+    }
+    menu(0);
+    return;
 }
 
 void regles() {
@@ -387,4 +550,23 @@ int chooseAmount() {
 int generateTake() {
     // On génère un nombre aléatoire entre 1 et 3
     return rand() % 3 + 1;
+}
+
+int generateTakeToWin(int matches) {
+
+    // si le total d'allumettes restantes est un multiple de 4, le tout +1
+    //   alors on ne peut gagner non pas grâce à son coup mais à une erreur de son adversaire
+    // donc on génère un nombre aléatoire
+    // sinon
+    // on génère un coup tel que le nombre d'allumettes restantes soit un multiple de 4, le tout plus 1
+    if(matches%4 == 1) {
+        // On génère un nombre aléatoire entre 1 et 3
+        return rand() % 3 + 1;
+    } else if((matches-1) % 4 -1 == 0) {
+        return 1;
+    } else if((matches-2) % 4 -1 == 0) {
+        return 2;
+    } else {
+        return 3;
+    }
 }
