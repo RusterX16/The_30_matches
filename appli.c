@@ -223,6 +223,7 @@ void jeuOrdiFacile() {
         // On incrémente le numéro du tour
         round++;
     }
+    printf("\n-----------------------------\n");
     menu(0);
     return;
 }
@@ -303,6 +304,7 @@ void jeuOrdiMoyen() {
         // On incrémente le numéro du tour
         round++;
     }
+    printf("\n-----------------------------\n");
     menu(0);
     return;
 }
@@ -386,6 +388,7 @@ void jeuOrdiDifficile() {
         // On incrémente le numéro du tour
         round++;
     }
+    printf("\n-----------------------------\n");
     menu(0);
     return;
 }
@@ -469,6 +472,7 @@ void jeuOrdiImpossible() {
         // On incrémente le numéro du tour
         round++;
     }
+    printf("\n-----------------------------\n");
     menu(0);
     return;
 }
