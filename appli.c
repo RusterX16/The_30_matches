@@ -314,7 +314,7 @@ void jeuOrdiMoyen() {
 }
 
 void jeuOrdiDifficile() {
-    // over est un boolean qui représente l'état du jeu (1: en cours, 0: terminé)
+   // over est un boolean qui représente l'état du jeu (1: en cours, 0: terminé)
     int over = 0;
     // turn est un boolean qui représente le tour du joueur (1: joueur, 0: ordinateur)
     int turn = 1;
@@ -398,7 +398,7 @@ void jeuOrdiDifficile() {
 }
 
 void jeuOrdiImpossible() {
-    // over est un boolean qui représente l'état du jeu (1: en cours, 0: terminé)
+   // over est un boolean qui représente l'état du jeu (1: en cours, 0: terminé)
     int over = 0;
     // turn est un boolean qui représente le tour du joueur (1: joueur, 0: ordinateur)
     int turn = 1;
@@ -565,21 +565,21 @@ int generateTake() {
 
 int generateTakeToWin(int matches) {
 
-    // si le total d'allumettes restantes est un multiple de 4, le tout +1
-    //   alors on ne peut gagner non pas grâce à son coup mais à une erreur de son adversaire
-    // donc on génère un nombre aléatoire
-    // sinon
-    // on génère un coup tel que le nombre d'allumettes restantes soit un multiple de 4, le tout plus 1
-    if(matches%4 == 1) {
-        // On génère un nombre aléatoire entre 1 et 3
-        return rand() % 3 + 1;
-    } else if((matches-1) % 4 -1 == 0) {
-        return 1;
-    } else if((matches-2) % 4 -1 == 0) {
-        return 2;
-    } else {
-        return 3;
-    }
+   // si le total d'allumettes restantes est un multiple de 4, le tout +1
+      //   alors on ne peut gagner non pas grâce à son coup mais à une erreur de son adversaire
+      // donc on génère un nombre aléatoire
+   // sinon
+      // on génère un coup tel que le nombre d'allumettes restantes soit un multiple de 4, le tout plus 1
+   if(matches%4 == 1) {
+      // On génère un nombre aléatoire entre 1 et 3
+      return rand() % 3 + 1;
+   } else if((matches-1) % 4 -1 == 0) {
+      return 1;
+   } else if((matches-2) % 4 -1 == 0) {
+      return 2;
+   } else {
+      return 3;
+   }
 }
 
 void options(int remake) {
@@ -610,14 +610,22 @@ void modifNombreAllumettes(int remake){
     if(remake == 0) {
         printf("\n-----------------------------\n");
         printf("\nEntrez le nouveau nombre d'allumettes (compris entre 15 et 120)\n");
-        printf("Entrez 0 si vous voulez annuler\n");
+        printf("Entrez 1 si vous voulez annuler\n");
         printf("\nVotre choix: ");
     } else {
         printf("\nVotre choix (compris entre 15 et 120): ");
     }
-    scanf("%d", &choix);
+    char test[1];
+    int c = 0;
+    scanf( "%3s",test);
+    while(1) {
+        c = getchar();
+        if (c == ' ' || c == '\n' || c == EOF) break;
+    }
 
-    if(choix == 0) {
+    choix = atoi(test);
+
+    if(choix == 1) {
         menu(0);
     }
     if(choix >= 15 && choix <= 120) {
