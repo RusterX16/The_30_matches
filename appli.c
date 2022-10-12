@@ -4,6 +4,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <ctype.h>
 
 
 
@@ -17,6 +18,7 @@ void regles();
 void options();
 void modifNombreAllumettes();
 void menu(int remake);
+int scanSingleNumber();
 void displayMatches(int matches);
 int chooseAmount();
 int generateTake();
@@ -126,7 +128,7 @@ void jeu_ordi(int remake) {
     } else {
         printf("\nVotre choix (1, 2, 3, 4 ou 5): ");
     }
-    scanf("%d", &choix);
+    choix = scanSingleNumber();
 
     if(choix == 1) {
         jeuOrdiFacile();
@@ -496,7 +498,7 @@ void menu(int remake) {
     } else {
         printf("\nVotre choix (1, 2, 3, 4 ou 5): ");
     }
-    scanf("%d", &choix);
+    choix = scanSingleNumber();
 
     if(choix == 1) {
         jeu_joueur();
@@ -544,7 +546,7 @@ int chooseAmount() {
     do {
         // On demande au joueur de choisir le nombre d'allumettes qu'il veut retirer
         printf("Combien d'allumettes voulez-vous retirer ?\n");
-        scanf("%d", &take);
+        take = scanSingleNumber();
 
         // Si le nombre d'allumettes est inférieur à 1 ou supérieur à 3,
         // on affiche un message d'erreur demandant au joueur de choisir un nombre entre 1 et 3
@@ -590,7 +592,7 @@ void options(int remake) {
     } else {
         printf("\nVotre choix (1, 2 ou 3): ");
     }
-    scanf("%d", &choix);
+    choix = scanSingleNumber();
 
     if(choix == 1) {
         modifNombreAllumettes(0);
@@ -625,4 +627,17 @@ void modifNombreAllumettes(int remake){
         modifNombreAllumettes(1);
     }
     return;
+}
+
+int scanSingleNumber() {
+    char choix;
+    char temp[1];
+    int c = 0;
+    scanf( "%1s",&choix);
+    while(1) {
+        c = getchar();
+        if (c == ' ' || c == '\n' || c == EOF) break;
+    }
+    temp[0] = choix;
+    return atoi(temp);
 }
