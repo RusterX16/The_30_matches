@@ -14,6 +14,8 @@ void jeuOrdiMoyen();
 void jeuOrdiDifficile();
 void jeuOrdiImpossible();
 void regles();
+void options();
+void modifNombreAllumettes();
 void menu(int remake);
 void displayMatches(int matches);
 int chooseAmount();
@@ -21,7 +23,7 @@ int generateTake();
 int generateTakeToWin(int matches);
 void breakLine();
 
-const int NOMBRE_ALLUMETTES = 30;
+int NOMBRE_ALLUMETTES = 30;
 
 
 
@@ -122,7 +124,7 @@ void jeu_ordi(int remake) {
         printf("\nVous venez de choisir Jouer contre l'ordinateur.\n\nVous disposez de plusieurs mode:\n\t1 - Facile\n\t2 - Moyen\n\t3 - Difficile\n\t4 - Impossible\n\t5 - Menu\n");
         printf("\nVotre choix: ");
     } else {
-        printf("\nVotre choix (1, 2 ou 3 ): ");
+        printf("\nVotre choix (1, 2, 3, 4 ou 5): ");
     }
     scanf("%d", &choix);
 
@@ -489,10 +491,10 @@ void menu(int remake) {
     int choix;
 
     if(remake == 0) {
-        printf("\nBienvenue au menu de notre jeu, vous pouvez:\n\n\t1 - Jouer joueur contre joueur\n\t2 - Joueur contre l'ordinateur\n\t3 - Consulter les règles du jeu\n\t4 - Quitter le jeu\n");
+        printf("\nBienvenue au menu de notre jeu, vous pouvez:\n\n\t1 - Jouer joueur contre joueur\n\t2 - Joueur contre l'ordinateur\n\t3 - Consulter les règles du jeu\n\t4 - Options\n\t5 - Quitter le jeu\n");
         printf("\nVotre choix: ");
     } else {
-        printf("\nVotre choix (1 or 2 or 3 or 4): ");
+        printf("\nVotre choix (1, 2, 3, 4 ou 5): ");
     }
     scanf("%d", &choix);
 
@@ -506,6 +508,9 @@ void menu(int remake) {
         regles();
         return;
     } else if(choix == 4) {
+        options(0);
+        return;
+    } else if(choix == 5) {
         return;
     }
     menu(1);
@@ -573,4 +578,51 @@ int generateTakeToWin(int matches) {
     } else {
         return 3;
     }
+}
+
+void options(int remake) {
+    int choix;
+
+    if(remake == 0) {
+        printf("\n-----------------------------\n");
+        printf("\nMenu des options:\n\n\t1 - Nombres d'allumettes\n\t2 - Menu\n");
+        printf("\nVotre choix: ");
+    } else {
+        printf("\nVotre choix (1, 2 ou 3): ");
+    }
+    scanf("%d", &choix);
+
+    if(choix == 1) {
+        modifNombreAllumettes(0);
+        return;
+    } else if(choix == 2) {
+        printf("\n-----------------------------\n");
+        menu(0);
+        return;
+    }
+    options(1);
+}
+
+void modifNombreAllumettes(int remake){
+    int choix;
+    if(remake == 0) {
+        printf("\n-----------------------------\n");
+        printf("\nEntrez le nouveau nombre d'allumettes (compris entre 15 et 120)\n");
+        printf("Entrez 0 si vous voulez annuler\n");
+        printf("\nVotre choix: ");
+    } else {
+        printf("\nVotre choix (compris entre 15 et 120): ");
+    }
+    scanf("%d", &choix);
+
+    if(choix == 0) {
+        menu(0);
+    }
+    if(choix >= 15 && choix <= 120) {
+        NOMBRE_ALLUMETTES = choix;
+        menu(0);
+    } else {
+        modifNombreAllumettes(1);
+    }
+    return;
 }
