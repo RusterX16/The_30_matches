@@ -32,6 +32,7 @@ int NOMBRE_ALLUMETTES = 30;
 int main() {
 
     printf("\n\t######################\n\t# Jeu des allumettes #\n\t######################\n");
+    printf("\nBienvenue au menu de notre jeu, vous pouvez:\n");
 
     menu(0);
 
@@ -485,7 +486,6 @@ void regles() {
     printf("\n-----------------------------\n");
     printf("\nLorsque vous lancerez la partie, vous verrez %d allumettes.\nA tour de rôle vous pourrez retirer 1, 2 ou 3 allumette(s) du tas.\nCe qui réduisa ce tas.\nCelui d'entre vous deux qui retire la dernière allumette du tas PERD!\n\nVous disposez de 2 modes:\n- un mode joueur contre joueur\n- un mode jouer contre l'ordinateur.\n\nVous pourrez choisir le niveau de difficulté de l'ordinateur une fois que vous aurez cliqué sur \"Jouer contre l'ordinateur\"\n", NOMBRE_ALLUMETTES);
     printf("\n-----------------------------\n");
-    printf("Reprenez votre choix du menu (1, 2, 3 ou 4)");
     menu(1);
 }
 
@@ -493,9 +493,9 @@ void menu(int remake) {
     int choix;
 
     if(remake == 0) {
-        printf("\nBienvenue au menu de notre jeu, vous pouvez:\n\n\t1 - Jouer joueur contre joueur\n\t2 - Joueur contre l'ordinateur\n\t3 - Consulter les règles du jeu\n\t4 - Options\n\t5 - Quitter le jeu\n");
+        printf("\n\t1 - Jouer joueur contre joueur\n\t2 - Joueur contre l'ordinateur\n\t3 - Consulter les règles du jeu\n\t4 - Options\n\t5 - Quitter le jeu\n");
         printf("\nVotre choix: ");
-    } else if (remake == 2) {
+    } else {
         printf("\nVotre choix (1, 2, 3, 4 ou 5): ");
     }
     choix = scanSingleNumber();
