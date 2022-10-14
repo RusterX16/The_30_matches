@@ -590,7 +590,7 @@ void options(int remake) {
         printf("\nMenu des options:\n\n\t1 - Nombres d'allumettes\n\t2 - Menu\n");
         printf("\nVotre choix: ");
     } else {
-        printf("\nVotre choix (1, 2 ou 3): ");
+        printf("\nVotre choix (1 ou 2): ");
     }
     choix = scanSingleNumber();
 
