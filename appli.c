@@ -314,7 +314,7 @@ void jeuOrdiMoyen() {
 }
 
 void jeuOrdiDifficile() {
-   // over est un boolean qui représente l'état du jeu (1: en cours, 0: terminé)
+    // over est un boolean qui représente l'état du jeu (1: en cours, 0: terminé)
     int over = 0;
     // turn est un boolean qui représente le tour du joueur (1: joueur, 0: ordinateur)
     int turn = 1;
@@ -398,7 +398,7 @@ void jeuOrdiDifficile() {
 }
 
 void jeuOrdiImpossible() {
-   // over est un boolean qui représente l'état du jeu (1: en cours, 0: terminé)
+    // over est un boolean qui représente l'état du jeu (1: en cours, 0: terminé)
     int over = 0;
     // turn est un boolean qui représente le tour du joueur (1: joueur, 0: ordinateur)
     int turn = 1;
@@ -495,7 +495,7 @@ void menu(int remake) {
     if(remake == 0) {
         printf("\nBienvenue au menu de notre jeu, vous pouvez:\n\n\t1 - Jouer joueur contre joueur\n\t2 - Joueur contre l'ordinateur\n\t3 - Consulter les règles du jeu\n\t4 - Options\n\t5 - Quitter le jeu\n");
         printf("\nVotre choix: ");
-    } else {
+    } else if (remake == 2) {
         printf("\nVotre choix (1, 2, 3, 4 ou 5): ");
     }
     choix = scanSingleNumber();
@@ -565,21 +565,21 @@ int generateTake() {
 
 int generateTakeToWin(int matches) {
 
-   // si le total d'allumettes restantes est un multiple de 4, le tout +1
-      //   alors on ne peut gagner non pas grâce à son coup mais à une erreur de son adversaire
-      // donc on génère un nombre aléatoire
-   // sinon
-      // on génère un coup tel que le nombre d'allumettes restantes soit un multiple de 4, le tout plus 1
-   if(matches%4 == 1) {
-      // On génère un nombre aléatoire entre 1 et 3
-      return rand() % 3 + 1;
-   } else if((matches-1) % 4 -1 == 0) {
-      return 1;
-   } else if((matches-2) % 4 -1 == 0) {
-      return 2;
-   } else {
-      return 3;
-   }
+    // si le total d'allumettes restantes est un multiple de 4, le tout +1
+    //   alors on ne peut gagner non pas grâce à son coup mais à une erreur de son adversaire
+    // donc on génère un nombre aléatoire
+    // sinon
+    // on génère un coup tel que le nombre d'allumettes restantes soit un multiple de 4, le tout plus 1
+    if(matches%4 == 1) {
+        // On génère un nombre aléatoire entre 1 et 3
+        return rand() % 3 + 1;
+    } else if((matches-1) % 4 -1 == 0) {
+        return 1;
+    } else if((matches-2) % 4 -1 == 0) {
+        return 2;
+    } else {
+        return 3;
+    }
 }
 
 void options(int remake) {
