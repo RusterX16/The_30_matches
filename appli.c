@@ -1,12 +1,10 @@
 //
-// Created by seb on 11/10/22.
+// Created by Sebastien CARLUER & Edvans SOUPLET & Eliott BARBET on 11/10/22.
 //
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
-
-
 
 void jeu_joueur();
 void jeu_ordi(int remake);
@@ -31,7 +29,8 @@ int NOMBRE_ALLUMETTES = 30;
 
 int main() {
 
-    printf("\n\t######################\n\t# Jeu des allumettes #\n\t######################\n");
+    printf("\n\t##########################################################\n\t#\t\t     Jeu des allumettes\t\t\t #\n\t# par Sebastien CARLUER & Edvans SOUPLET & Eliott BARBET #\n\t##########################################################\n");
+
     printf("\nBienvenue au menu de notre jeu, vous pouvez:\n");
 
     menu(0);
@@ -493,10 +492,11 @@ void menu(int remake) {
     int choix;
 
     if(remake == 0) {
-        printf("\n\t1 - Jouer joueur contre joueur\n\t2 - Joueur contre l'ordinateur\n\t3 - Consulter les règles du jeu\n\t4 - Options\n\t5 - Quitter le jeu\n");
+        printf("\n\t1 - Jouer joueur contre joueur\n\t2 - Joueur contre l'ordinateur\n\t3 - Consulter les regles du jeu\n\t4 - Options\n\t5 - Quitter le jeu\n");
         printf("\nVotre choix: ");
     } else {
         printf("\nVotre choix (1, 2, 3, 4 ou 5): ");
+        printf("test");
     }
     choix = scanSingleNumber();
 
