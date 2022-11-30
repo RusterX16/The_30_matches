@@ -496,7 +496,6 @@ void menu(int remake) {
         printf("\nVotre choix: ");
     } else {
         printf("\nVotre choix (1, 2, 3, 4 ou 5): ");
-        printf("test");
     }
     choix = scanSingleNumber();
 
